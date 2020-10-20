@@ -78,30 +78,23 @@ public class EksamenSBinTre<T> {
 
         return s.toString();
     }
-
     public boolean tom() {
         return antall == 0;
     }
+
+    /////////////////////////// OPPGAVE 1 //////////////////////////////////////////////
 
     public boolean leggInn(T verdi) {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
-    public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
-    }
-
-    public int fjernAlle(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
-    }
+    /////////////////////////// OPPGAVE 2 //////////////////////////////////////////////
 
     public int antall(T verdi) {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
-    public void nullstill() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
-    }
+    /////////////////////////// OPPGAVE 3 //////////////////////////////////////////////
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
@@ -110,6 +103,8 @@ public class EksamenSBinTre<T> {
     private static <T> Node<T> nestePostorden(Node<T> p) {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
+
+    /////////////////////////// OPPGAVE 4 //////////////////////////////////////////////
 
     public void postorden(Oppgave<? super T> oppgave) {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
@@ -123,6 +118,8 @@ public class EksamenSBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+    /////////////////////////// OPPGAVE 5 //////////////////////////////////////////////
+
     public ArrayList<T> serialize() {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
@@ -130,6 +127,30 @@ public class EksamenSBinTre<T> {
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
+
+    /////////////////////////// OPPGAVE 6 //////////////////////////////////////////////
+
+    public boolean fjern(T verdi) {
+        throw new UnsupportedOperationException("Ikke kodet ennå!");
+    }
+
+    public int fjernAlle(T verdi) {
+        throw new UnsupportedOperationException("Ikke kodet ennå!");
+    }
+
+
+
+    public void nullstill() {
+        throw new UnsupportedOperationException("Ikke kodet ennå!");
+    }
+
+
+
+
+
+
+
+
 
 
 } // ObligSBinTre
