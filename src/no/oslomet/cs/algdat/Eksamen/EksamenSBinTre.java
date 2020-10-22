@@ -73,27 +73,23 @@ public class EksamenSBinTre<T> {
     public boolean leggInn(T verdi) {
         Objects.requireNonNull(verdi, "Ikke love med null-verdier");
 
-        Node<T> p = rot, forelder = null;  //p starter i roten
+
+        Node<T> p = rot, q = null;  //p starter i roten
         int cmp = 0;    //hjelpevariabel
 
         while(p != null) {  //fortsetter til p er ute av treet
-            forelder = p;  //forelder er forelder til p
+            q = p;  //forelder er forelder til p
             cmp = comp.compare(verdi, p.verdi); //bruker komparatoren
-            if(cmp < 0) {
-                forelder = p.venstre;
-            }
-            else {
-                forelder = p.høyre;
-            }
+            p = cmp < 0 ? p.venstre : p.høyre;
         }
 
         //p er nå null, som betyr at den er ute av treet, forelder er den siste vi passerte
 
-        p = new Node<>(verdi);  //oppretter en ny node
+        p = new Node<>(verdi, null);  //oppretter en ny node
 
-        if(forelder == null) rot = p;  //p blir rotnode
-        else if(cmp < 0) forelder.venstre = p; //venstre barn til q
-        else forelder.høyre = p;   //høyre barn til q
+        if(q == null) rot = p;  //p blir rotnode
+        else if(cmp < 0) q.venstre = p; //venstre barn til q
+        else q.høyre = p;   //høyre barn til q
 
         antall++;   //en verdi mer i treet
         return true;    //vellykket innlegging
