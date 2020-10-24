@@ -124,13 +124,13 @@ public class EksamenSBinTre<T> {
     public int antall(T verdi) {
 
         Node<T> p = rot;
-        int antall = 0;
+        int antall = 0;     //Hjelpevariabel for å holde styr på antallet forekomster
 
-        while (p != null) {
-            int cmp = comp.compare(verdi, p.verdi);
-            if(cmp < 0) p = p.venstre;
+        while (p != null) {     //Kjører når vi vet det finnes noder
+            int cmp = comp.compare(verdi, p.verdi); //Bruker komparatoren på verdien i treeet og p
+            if(cmp < 0) p = p.venstre;      //Hvis komparator er mindre enn 0, får p ny verdi til venstre
             else {
-                if(cmp == 0) antall++;
+                if(cmp == 0) antall++;      //Hvis komparator er null, øker antall og p får verdi til høyre
                 p = p.høyre;
             }
         }
