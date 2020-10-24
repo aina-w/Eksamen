@@ -141,17 +141,71 @@ public class EksamenSBinTre<T> {
     /////////////////////////// OPPGAVE 3 //////////////////////////////////////////////
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Stack<Node> stack = new Stack<>();
+        while(true) {
+            while(p != null) {
+                stack.push(p);
+                stack.push(p);
+                p = p.venstre;
+            }
+            if(stack.isEmpty())
+            p = stack.pop();
+
+            if(stack.isEmpty() && stack.peek() == p) p = p.høyre;
+
+            else {
+                return null;
+            }
+
+        }
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Node<T> n = p.forelder;
+
+        if(n == p) {        //Sjekker om n er lik roten, isåfall har den ingen neste
+            return null;
+        }
+        Node<T> forelder = n.forelder;
+        if(forelder.høyre == null) {
+            return forelder;
+        }
+
+        Node<T> denne = forelder.høyre;
+        while (denne.venstre != null)
+            denne = denne.venstre;
+
+        return denne;
     }
 
     /////////////////////////// OPPGAVE 4 //////////////////////////////////////////////
 
+
+    //Kopiert kode fra kompendiet sitt løsningsforslag på oppgave 6 til kap 5.1.10
     public void postorden(Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Object[] a = new Object[10];
+        int k = 0;
+        a[k++] = null;
+
+        Node<T> p = rot;
+
+        while(p != null) {
+            oppgave.utførOppgave(p.verdi);
+
+            if(p.venstre != null) {
+                if(p.høyre != null) {
+                    if(k == a.length) a = Arrays.copyOf(a, 2*k);
+                    a[k++] = p.høyre;
+                }
+                p = p.venstre;
+            }
+            else if (p.høyre != null) {
+                p = p.høyre;
+            }
+            else {
+                p = (Node<T>)a[--k];
+            }
+        }
     }
 
     public void postordenRecursive(Oppgave<? super T> oppgave) {
