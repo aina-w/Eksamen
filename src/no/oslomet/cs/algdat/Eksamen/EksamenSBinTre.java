@@ -2,6 +2,7 @@ package no.oslomet.cs.algdat.Eksamen;
 
 
 import javax.swing.tree.TreeNode;
+import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.*;
 
@@ -207,28 +208,26 @@ public class EksamenSBinTre<T> {
 
     public ArrayList<T> serialize() {
         Node<T> p = rot;
-        ArrayList<T> array = new ArrayList<>();
-        if(rot == null) {
+        if (rot == null) {
             return null;
         }
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(rot);
-        while(!queue.isEmpty()) {
-            int size = queue.size();
-            List<T> currentLevel = new ArrayList<>();
-            for(int i = 0; i < size; i++) {
-                Node denne = queue.remove();
-                currentLevel.add(denne.verdi);
-                if(denne.venstre != null) {
-                    queue.add(denne.venstre);
-                }
-                if(denne.høyre != null) {
-                    queue.add(denne.høyre);
-                }
 
+        ArrayList<T> array = new ArrayList<>();
+        LinkedList<Node<T>> queue = new LinkedList<>();
+        queue.addLast(rot);
+
+        while(!queue.isEmpty()) {
+            Node<T> denne = queue.removeFirst();
+            array.add(denne.verdi);
+
+            if(denne.venstre != null) {
+                queue.addLast(denne.venstre);
             }
-            array.add(currentLevel);
+            if(denne.høyre != null) {
+                queue.addLast(denne.høyre);
+            }
         }
+        return array;
 
 
     }
