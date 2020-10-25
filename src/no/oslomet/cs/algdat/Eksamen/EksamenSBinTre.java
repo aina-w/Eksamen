@@ -1,6 +1,7 @@
 package no.oslomet.cs.algdat.Eksamen;
 
 
+import javax.swing.tree.TreeNode;
 import java.sql.SQLOutput;
 import java.util.*;
 
@@ -205,7 +206,31 @@ public class EksamenSBinTre<T> {
     /////////////////////////// OPPGAVE 5 //////////////////////////////////////////////
 
     public ArrayList<T> serialize() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Node<T> p = rot;
+        ArrayList<T> array = new ArrayList<>();
+        if(rot == null) {
+            return null;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(rot);
+        while(!queue.isEmpty()) {
+            int size = queue.size();
+            List<T> currentLevel = new ArrayList<>();
+            for(int i = 0; i < size; i++) {
+                Node denne = queue.remove();
+                currentLevel.add(denne.verdi);
+                if(denne.venstre != null) {
+                    queue.add(denne.venstre);
+                }
+                if(denne.høyre != null) {
+                    queue.add(denne.høyre);
+                }
+
+            }
+            array.add(currentLevel);
+        }
+
+
     }
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
