@@ -141,7 +141,7 @@ public class EksamenSBinTre<T> {
     /////////////////////////// OPPGAVE 3 //////////////////////////////////////////////
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        /*Kopiert kode fra kompendiet 5.1.7h) *//
+        /*Kopiert kode fra kompendiet 5.1.7h) */
         Objects.requireNonNull(p, "Null-verdier er ikke tillatt");
 
         while(true) {
@@ -202,13 +202,22 @@ public class EksamenSBinTre<T> {
         }
     }
 
+
+
+    /*Kopiert kode fra løsningsforslag i kompendiet, 5.1.7 oppg7*/
+    private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
+        if(p.venstre != null) {
+            postordenRecursive(p.venstre, oppgave);
+        }
+        if(p.høyre != null) {
+            postordenRecursive(p.høyre, oppgave);
+        }
+        oppgave.utførOppgave(p.verdi);
+    }
     public void postordenRecursive(Oppgave<? super T> oppgave) {
         postordenRecursive(rot, oppgave);
     }
 
-    private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
-    }
 
     /////////////////////////// OPPGAVE 5 //////////////////////////////////////////////
 
@@ -222,18 +231,85 @@ public class EksamenSBinTre<T> {
 
     /////////////////////////// OPPGAVE 6 //////////////////////////////////////////////
 
+    /*Kopiert kode fra kompendiet 5.2.8d) */
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if(verdi == null) {
+            return false;
+        }
+
+        Node<T> p = rot, q = null;
+
+        while(p != null) {
+            int cmp = comp.compare(verdi, p.verdi);
+            if(cmp < 0) {
+                q = p;
+                p = p.venstre;
+            }
+            else if(cmp > 0) {
+                q = p;
+                p = p.høyre;
+            }
+            else {
+                break;
+            }
+
+        }
+        if(p == null) {
+            return false;
+        }
+        if(p.venstre == null || p.høyre == null) {
+            Node<T> b = p.venstre != null ? p.venstre : p.høyre;
+            if(p == rot) {
+                rot = b;
+            }
+            else if(p == q.venstre) {
+                q.venstre = b;
+            }
+            else {
+                q.høyre = b;
+            }
+        }
+        else {
+            Node<T> s = p, r = p.høyre;
+            while(r.venstre != null) {
+                s = r;
+                r = r.venstre;
+            }
+            p.verdi = r.verdi;
+            if(s != p) {
+                s.venstre = r.høyre;
+            }
+            else {
+                s.høyre = r.høyre;
+            }
+        }
+        antall--;
+        return true;
     }
 
     public int fjernAlle(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        int antall = 0;
+        while(fjern(verdi)) {
+            antall++;
+        }
+        return antall;
     }
 
 
 
     public void nullstill() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Node<T> p = rot;
+        if(p.venstre != null) {
+            nullstill();
+            p.venstre = null;
+            antall--;
+        }
+        if(p.høyre != null) {
+            nullstill();
+            p.høyre = null;
+            antall--;
+        }
+        p.verdi = null;
     }
 
 
