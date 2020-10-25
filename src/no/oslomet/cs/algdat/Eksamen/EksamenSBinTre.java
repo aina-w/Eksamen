@@ -85,7 +85,7 @@ public class EksamenSBinTre<T> {
 
         //p er nå null, som betyr at den er ute av treet, forelder er den siste vi passerte
 
-        p = new Node<>(verdi, null);  //oppretter en ny node
+        p = new Node<>(verdi, q);  //oppretter en ny node
 
         if(q == null) rot = p;  //p blir rotnode
         else if(cmp < 0) q.venstre = p; //venstre barn til q
@@ -141,41 +141,35 @@ public class EksamenSBinTre<T> {
     /////////////////////////// OPPGAVE 3 //////////////////////////////////////////////
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        Stack<Node> stack = new Stack<>();
+        /*Kopiert kode fra kompendiet 5.1.7h) */
+        Objects.requireNonNull(p, "Null-verdier er ikke tillatt");
+
         while(true) {
-            while(p != null) {
-                stack.push(p);
-                stack.push(p);
-                p = p.venstre;
-            }
-            if(stack.isEmpty())
-            p = stack.pop();
-
-            if(stack.isEmpty() && stack.peek() == p) p = p.høyre;
-
-            else {
-                return null;
-            }
-
+            if(p.venstre != null) p = p.venstre;
+            else if(p.høyre != null) p = p.høyre;
+            else return p;
         }
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        Node<T> n = p.forelder;
-
-        if(n == p) {        //Sjekker om n er lik roten, isåfall har den ingen neste
+        if(p.forelder == null) {        //Sjekker om p er rot-noden
             return null;
         }
-        Node<T> forelder = n.forelder;
-        if(forelder.høyre == null) {
-            return forelder;
+        else if(p.forelder != null && p == p.forelder.høyre) {  //Hvis p er et høyre barn vil p sin forelder være neste i postorden
+            p = p.forelder;
         }
-
-        Node<T> denne = forelder.høyre;
-        while (denne.venstre != null)
-            denne = denne.venstre;
-
-        return denne;
+        else if(p.forelder != null && p == p.forelder.venstre) {    //Hvis p er et venstre barn, og p sin forelder ikke har et høyre barn
+            if(p.forelder.høyre == null) {                              //^ er p sin forelder neste i postorden
+                p = p.forelder;
+            }
+            else {
+                p = p.forelder.høyre;               //Den neste i postorden vil alltid være den lengst til venstre sitt høyre barn
+                while(p.venstre != null) {              //^dersom den eksisterer
+                    p = p.venstre;
+                }
+            }
+        }
+        return p;
     }
 
     /////////////////////////// OPPGAVE 4 //////////////////////////////////////////////
