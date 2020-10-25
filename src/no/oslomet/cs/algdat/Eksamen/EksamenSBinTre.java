@@ -207,23 +207,30 @@ public class EksamenSBinTre<T> {
     /////////////////////////// OPPGAVE 5 //////////////////////////////////////////////
 
     public ArrayList<T> serialize() {
-        Node<T> p = rot;
+        //Sjekker om roten er null
         if (rot == null) {
             return null;
         }
-
+        //Oppretter en ArrayList jeg kan lagre verdiene i
         ArrayList<T> array = new ArrayList<>();
+        //Og oppretter en kø
         LinkedList<Node<T>> queue = new LinkedList<>();
+        //Legger roten som sist i køen
         queue.addLast(rot);
 
+        //Kjører så lenge køen ikke er tom
         while(!queue.isEmpty()) {
             Node<T> denne = queue.removeFirst();
+            //Legger denne.verdi inn i array
             array.add(denne.verdi);
 
+            //Legger inn denne.venstre sist i køen
             if(denne.venstre != null) {
                 queue.addLast(denne.venstre);
             }
+
             if(denne.høyre != null) {
+                //Legger inn denne.høyre sist i køen
                 queue.addLast(denne.høyre);
             }
         }
@@ -233,7 +240,14 @@ public class EksamenSBinTre<T> {
     }
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        //Lager et nytt tre, og bruker komparatoren
+        EksamenSBinTre<K> tre = new EksamenSBinTre<>(c);
+        //Looper gjennom verdiene i ArrayListen data, og legger inn i det nye treet
+        for(K verdi : data) {
+            tre.leggInn(verdi);
+        }
+        // Returnerer treet
+        return tre;
     }
 
     /////////////////////////// OPPGAVE 6 //////////////////////////////////////////////
