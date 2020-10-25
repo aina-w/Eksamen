@@ -141,7 +141,7 @@ public class EksamenSBinTre<T> {
     /////////////////////////// OPPGAVE 3 //////////////////////////////////////////////
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        /*Kopiert kode fra kompendiet 5.1.7h) */
+        /*Kopiert kode fra kompendiet 5.1.7h) *//
         Objects.requireNonNull(p, "Null-verdier er ikke tillatt");
 
         while(true) {
