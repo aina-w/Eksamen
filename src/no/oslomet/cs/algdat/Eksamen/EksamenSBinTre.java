@@ -175,36 +175,16 @@ public class EksamenSBinTre<T> {
     /////////////////////////// OPPGAVE 4 //////////////////////////////////////////////
 
 
-    //Kopiert kode fra kompendiet sitt løsningsforslag på oppgave 6 til kap 5.1.10
     public void postorden(Oppgave<? super T> oppgave) {
-        Object[] a = new Object[10];
-        int k = 0;
-        a[k++] = null;
 
-        Node<T> p = rot;
-
-        while(p != null) {
+        Node<T> p = førstePostorden(rot);
+        while (p != null) {
             oppgave.utførOppgave(p.verdi);
-
-            if(p.venstre != null) {
-                if(p.høyre != null) {
-                    if(k == a.length) a = Arrays.copyOf(a, 2*k);
-                    a[k++] = p.høyre;
-                }
-                p = p.venstre;
-            }
-            else if (p.høyre != null) {
-                p = p.høyre;
-            }
-            else {
-                p = (Node<T>)a[--k];
-            }
+            p = nestePostorden(p);
         }
     }
 
 
-
-    /*Kopiert kode fra løsningsforslag i kompendiet, 5.1.7 oppg7*/
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
         if(p.venstre != null) {
             postordenRecursive(p.venstre, oppgave);
@@ -288,6 +268,9 @@ public class EksamenSBinTre<T> {
     }
 
     public int fjernAlle(T verdi) {
+        if(verdi == null) {
+            return 0;
+        }
         int antall = 0;
         while(fjern(verdi)) {
             antall++;
