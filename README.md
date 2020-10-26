@@ -29,6 +29,11 @@ den lengst til venstre eksisterer.
 *Oppgave 4: Når p ikke er null, skriver vi ut den første noden p i postorden. Deretter bruker jeg nestePostorden() til å skrive ut den 
 neste noden. I den rekursive funksjonen traverserer jeg treet i postorden rekkefølge og skriver det ut. 
 
-*Oppgave 5:
+*Oppgave 5: Har løst serialize() ved å først opprette en ArrayList jeg kan lagre verdiene fra treet i. 
+Deretter har jeg også opprettet en kø, og starter med å legge roten sist i køen. Så legger jeg verdiene fra
+treet inn i køen og returnerer arrayet jeg har laget. 
+I deserialize opprettet jeg et nytt tre og bruker komparatoren. Så bruker jeg arrayet fra serialize, looper gjennom det 
+og legger verdiene inn i det nye treet. 
+
 
 *Oppgave 6: 

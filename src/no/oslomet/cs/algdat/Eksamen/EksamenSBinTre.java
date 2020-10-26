@@ -160,10 +160,10 @@ public class EksamenSBinTre<T> {
         if(p.forelder == null) {        //Sjekker om p er rot-noden
             return null;
         }
-        else if(p.forelder != null && p == p.forelder.høyre) {  //Hvis p er et høyre barn vil p sin forelder være neste i postorden
+        else if(p == p.forelder.høyre) {  //Hvis p er et høyre barn vil p sin forelder være neste i postorden
             p = p.forelder;
         }
-        else if(p.forelder != null && p == p.forelder.venstre) {    //Hvis p er et venstre barn, og p sin forelder ikke har et høyre barn
+        else if(p == p.forelder.venstre) {    //Hvis p er et venstre barn, og p sin forelder ikke har et høyre barn
             if(p.forelder.høyre == null) {                              //^ er p sin forelder neste i postorden
                 p = p.forelder;
             }
