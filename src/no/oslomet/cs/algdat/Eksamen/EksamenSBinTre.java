@@ -172,6 +172,9 @@ public class EksamenSBinTre<T> {
                 while(p.venstre != null) {              //^dersom den eksisterer
                     p = p.venstre;
                 }
+                while(p.høyre != null) {
+                    p = p.høyre;
+                }
             }
         }
         return p;
@@ -254,54 +257,60 @@ public class EksamenSBinTre<T> {
 
     /*Kopiert kode fra kompendiet 5.2.8d) */
     public boolean fjern(T verdi) {
-        if(verdi == null) {
+        if(verdi == null) { // treet har ingen nullverdier
             return false;
         }
 
-        Node<T> p = rot, q = null;
+        Node<T> p = rot, q = null;  //q skal være forelder til p
 
-        while(p != null) {
-            int cmp = comp.compare(verdi, p.verdi);
-            if(cmp < 0) {
+        while(p != null) {          // leter etter verdi
+            int cmp = comp.compare(verdi, p.verdi); //sammenlikner
+            if(cmp < 0) {                           //går til venstre
                 q = p;
                 p = p.venstre;
             }
-            else if(cmp > 0) {
+            else if(cmp > 0) {                      //går til høyre
                 q = p;
                 p = p.høyre;
             }
             else {
-                break;
+                break;              //den søkte verdien ligger i p
             }
 
         }
-        if(p == null) {
+        if(p == null) {             //finner ikke verdi
             return false;
         }
-        if(p.venstre == null || p.høyre == null) {
-            Node<T> b = p.venstre != null ? p.venstre : p.høyre;
+
+        if(p.venstre == null || p.høyre == null) {          // Tilfelle 1) og 2)
+            Node<T> b = p.venstre != null ? p.venstre : p.høyre;    //b for barn
             if(p == rot) {
                 rot = b;
             }
             else if(p == q.venstre) {
                 q.venstre = b;
+                b.forelder = q;
             }
             else {
                 q.høyre = b;
+                b.forelder = q;
             }
         }
-        else {
-            Node<T> s = p, r = p.høyre;
+        else {                                              //Tilfelle 3)
+            Node<T> s = p, r = p.høyre;                     //Finner neste i inorden
             while(r.venstre != null) {
-                s = r;
+                s = r;                                      //s er forelder til r
                 r = r.venstre;
-            }
+
+            }                                               //kopierer verdien i r til p
             p.verdi = r.verdi;
             if(s != p) {
                 s.venstre = r.høyre;
+                s.venstre.forelder = s;
             }
             else {
                 s.høyre = r.høyre;
+                s.høyre.forelder = s;
             }
         }
         antall--;

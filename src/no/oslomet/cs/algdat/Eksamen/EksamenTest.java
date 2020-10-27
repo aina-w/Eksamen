@@ -228,7 +228,6 @@ public class EksamenTest {
 
         int[] a = {6, 3, 9, 1, 5, 7, 10, 2, 4, 8, 11, 6, 8};
         for (int verdi : a) tre.leggInn(verdi);
-
         boolean fjernet = tre.fjern(12);
         s = tre.toStringPostOrder();
 
