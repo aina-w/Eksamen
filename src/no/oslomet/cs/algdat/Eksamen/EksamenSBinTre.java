@@ -172,7 +172,7 @@ public class EksamenSBinTre<T> {
                 while(p.venstre != null) {              //^dersom den eksisterer
                     p = p.venstre;
                 }
-                while(p.høyre != null) {
+                while(p.høyre != null) {            //Vi må også sjekke for høyre barn
                     p = p.høyre;
                 }
             }
@@ -282,67 +282,81 @@ public class EksamenSBinTre<T> {
             return false;
         }
 
-        if(p.venstre == null || p.høyre == null) {          // Tilfelle 1) og 2)
+        else if(p.venstre == null || p.høyre == null) {
             Node<T> b = p.venstre != null ? p.venstre : p.høyre;    //b for barn
             if(p == rot) {
-                rot = b;
+                rot = b;                        //Hvis p er roten, setter vi roten til b
+                if(b != null){
+                    b.forelder = null;          //Rotens forelder er null
+                }
             }
             else if(p == q.venstre) {
-                q.venstre = b;
-                b.forelder = q;
+                q.venstre = b;                  //q sitt venstre barn er b
+                if(b != null) {
+                    b.forelder = q;             //Hvis b ikke er lik null, setter jeg q som forelder til b
+                }
             }
             else {
-                q.høyre = b;
-                b.forelder = q;
+                q.høyre = b;                    //Ellers er q sitt høyre barn lik b
+                if(b != null) {
+                    b.forelder = q;
+                }
             }
         }
-        else {                                              //Tilfelle 3)
+        else {
             Node<T> s = p, r = p.høyre;                     //Finner neste i inorden
             while(r.venstre != null) {
                 s = r;                                      //s er forelder til r
-                r = r.venstre;
+                r = r.venstre;                              //r er r sitt venstre barn
 
             }                                               //kopierer verdien i r til p
             p.verdi = r.verdi;
             if(s != p) {
-                s.venstre = r.høyre;
-                s.venstre.forelder = s;
+                s.venstre = r.høyre;                        //Hvis s ikke er lik p, settes s sitt venstre barn lik r sitt høyre barn
+                if(r.høyre != null) {
+                    r.forelder.høyre = s;
+                }
+
             }
             else {
-                s.høyre = r.høyre;
-                s.høyre.forelder = s;
+                s.høyre = r.høyre;                          //Ellers skal s sitt høyre barn være lik r sitt høyre barn
+
             }
         }
-        antall--;
+        antall--;                                           //Oppdaterer antallet
         return true;
     }
 
     public int fjernAlle(T verdi) {
-        if(verdi == null) {
-            return 0;
-        }
-        int antall = 0;
-        while(fjern(verdi)) {
-            antall++;
-        }
-        return antall;
+        if (rot == null) return 0;                          //Sjekker om treet er tomt
+        int teller = 0;
+        while (fjern(verdi)) teller++;
+
+        return teller;
+
     }
 
 
 
     public void nullstill() {
-        Node<T> p = rot;
+
+    if(!tom()) {
+        nullstillRecursive(rot);
+    }
+    rot = null;
+
+    }
+    private void nullstillRecursive(Node<T> p) {
         if(p.venstre != null) {
-            nullstill();
+            nullstillRecursive(p.venstre);
             p.venstre = null;
-            antall--;
         }
         if(p.høyre != null) {
-            nullstill();
+            nullstillRecursive(p.høyre);
             p.høyre = null;
-            antall--;
         }
         p.verdi = null;
+        antall--;
     }
 
 

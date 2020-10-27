@@ -44,6 +44,7 @@ public class EksamenTest {
         }
 
         assertEquals(antallFeil, 0);
+
     }  // slutt på Oppgave 1
 
 
