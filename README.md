@@ -14,7 +14,7 @@ Se oblig-tekst for alle krav, og husk spesielt på følgende:
 
 # Beskrivelse av oppgaveløsning (4-8 linjer/setninger per oppgave)
 
-Jeg har brukt git til å dokumentere arbeidet mitt. Jeg har ** commits totalt, og hver logg-melding beskriver det jeg har gjort av endringer.
+Jeg har brukt git til å dokumentere arbeidet mitt. Jeg har 19 commits totalt, og hver logg-melding beskriver det jeg har gjort av endringer.
 
 * Oppgave 1: Her brukte jeg kode fra kompendiet (5.2.3a). Metoden legger inn noder, og det er viktig at hver node har riktig 
 foreldre-referanse. Her måtte jeg passe på at når jeg opprettet en ny node, så var det q som var forelder. 
@@ -46,3 +46,8 @@ fjerne verdiene.
 For nullstill-metoden opprettet jeg en privat rekursiv metode nullstillRecursive som nullstiller. Den går rekursivt nedover venstre og høyre og setter verdiene til null, og reduserer da antallet
 hver gang og setter verdien til p til null. Så i nullstill kaller jeg på nullstillRecursive som tar inn roten som parameter og setter roten til null. Jeg var litt usikker på om det var lov å sette roten til null her, 
 men jeg fant ikke noen annen måte å gjøre det på. 
+
+
+*Ellers:
+Jeg har 8 warnings, men det er tilsynelatende ingenting jeg kan gjøre med dem, utenom å gjerne import-statements og metoder som ikke blir brukt, 
+men det dropper jeg ettersom de stor i EksamenSBinTre-filen fra start.
