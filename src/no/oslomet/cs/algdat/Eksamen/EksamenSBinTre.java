@@ -185,22 +185,22 @@ public class EksamenSBinTre<T> {
 
     public void postorden(Oppgave<? super T> oppgave) {
 
-        Node<T> p = førstePostorden(rot);
-        while (p != null) {
+        Node<T> p = førstePostorden(rot);            //Lager en node ved hjelp av førstePostorden med roten som parameter
+        while (p != null) {                          //Når p ikke er null utføres oppgaven med p.verdi
             oppgave.utførOppgave(p.verdi);
-            p = nestePostorden(p);
+            p = nestePostorden(p);                   //Og ved hjelp av nestePostorden finner vi den neste post orden
         }
     }
 
 
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
-        if(p.venstre != null) {
+        if(p.venstre != null) {                         //Traverserer treet rekursivt i postorden rekkefølge, og starter med venstre side
             postordenRecursive(p.venstre, oppgave);
         }
-        if(p.høyre != null) {
+        if(p.høyre != null) {                           //Går videre til høyre side
             postordenRecursive(p.høyre, oppgave);
         }
-        oppgave.utførOppgave(p.verdi);
+        oppgave.utførOppgave(p.verdi);                  //Utfører oppgaven med p.verdi i som parameter
     }
     public void postordenRecursive(Oppgave<? super T> oppgave) {
         postordenRecursive(rot, oppgave);
@@ -261,31 +261,31 @@ public class EksamenSBinTre<T> {
             return false;
         }
 
-        Node<T> p = rot, q = null;  //q skal være forelder til p
+        Node<T> p = rot, q = null;                          //q skal være forelder til p
 
-        while(p != null) {          // leter etter verdi
-            int cmp = comp.compare(verdi, p.verdi); //sammenlikner
-            if(cmp < 0) {                           //går til venstre
+        while(p != null) {                                  // leter etter verdi
+            int cmp = comp.compare(verdi, p.verdi);         //sammenlikner
+            if(cmp < 0) {                                   //går til venstre
                 q = p;
                 p = p.venstre;
             }
-            else if(cmp > 0) {                      //går til høyre
+            else if(cmp > 0) {                              //går til høyre
                 q = p;
                 p = p.høyre;
             }
             else {
-                break;              //den søkte verdien ligger i p
+                break;                                      //den søkte verdien ligger i p
             }
 
         }
-        if(p == null) {             //finner ikke verdi
+        if(p == null) {                                     //finner ikke verdi
             return false;
         }
 
         else if(p.venstre == null || p.høyre == null) {
             Node<T> b = p.venstre != null ? p.venstre : p.høyre;    //b for barn
             if(p == rot) {
-                rot = b;                        //Hvis p er roten, setter vi roten til b
+                rot = b;                                    //Hvis p er roten, setter vi roten til b
                 if(b != null){
                     b.forelder = null;          //Rotens forelder er null
                 }
@@ -329,8 +329,8 @@ public class EksamenSBinTre<T> {
 
     public int fjernAlle(T verdi) {
         if (rot == null) return 0;                          //Sjekker om treet er tomt
-        int teller = 0;
-        while (fjern(verdi)) teller++;
+        int teller = 0;                                     //Hjelpevariabel som teller forekomstene som blir fjernet
+        while (fjern(verdi)) teller++;                      //teller øker hver gang fjern() fjerner en verdi
 
         return teller;
 
@@ -340,23 +340,23 @@ public class EksamenSBinTre<T> {
 
     public void nullstill() {
 
-    if(!tom()) {
-        nullstillRecursive(rot);
+    if(!tom()) {                                            //Hvis treet ikke er tomt, bruker jeg nullstillRecursive med rot som
+        nullstillRecursive(rot);                                //parameter
     }
     rot = null;
 
     }
     private void nullstillRecursive(Node<T> p) {
-        if(p.venstre != null) {
+        if(p.venstre != null) {                             //Går rekursivt ned venstre side og setter venstre til null
             nullstillRecursive(p.venstre);
             p.venstre = null;
         }
-        if(p.høyre != null) {
+        if(p.høyre != null) {                               //Går rekursivt ned høyre side og setter høyre til null
             nullstillRecursive(p.høyre);
             p.høyre = null;
         }
-        p.verdi = null;
-        antall--;
+        p.verdi = null;                                     //p har ikke lenger en verdi
+        antall--;                                           //og antallet i treet minker for hver gang
     }
 
 

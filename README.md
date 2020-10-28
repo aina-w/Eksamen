@@ -14,7 +14,7 @@ Se oblig-tekst for alle krav, og husk spesielt på følgende:
 
 # Beskrivelse av oppgaveløsning (4-8 linjer/setninger per oppgave)
 
-Jeg har brukt git til å dokumentere arbeidet mitt. Jeg har 19 commits totalt, og hver logg-melding beskriver det jeg har gjort av endringer.
+Jeg har brukt git til å dokumentere arbeidet mitt. Jeg har 20 commits totalt, og hver logg-melding beskriver det jeg har gjort av endringer.
 
 * Oppgave 1: Her brukte jeg kode fra kompendiet (5.2.3a). Metoden legger inn noder, og det er viktig at hver node har riktig 
 foreldre-referanse. Her måtte jeg passe på at når jeg opprettet en ny node, så var det q som var forelder. 
