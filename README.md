@@ -14,7 +14,7 @@ Se oblig-tekst for alle krav, og husk spesielt på følgende:
 
 # Beskrivelse av oppgaveløsning (4-8 linjer/setninger per oppgave)
 
-Jeg har brukt git til å dokumentere arbeidet mitt. Jeg har 20 commits totalt, og hver logg-melding beskriver det jeg har gjort av endringer.
+Jeg har brukt git til å dokumentere arbeidet mitt. Jeg har 21 commits totalt, og hver logg-melding beskriver det jeg har gjort av endringer.
 
 * Oppgave 1: Her brukte jeg kode fra kompendiet (5.2.3a). Metoden legger inn noder, og det er viktig at hver node har riktig 
 foreldre-referanse. Her måtte jeg passe på at når jeg opprettet en ny node, så var det q som var forelder. 
@@ -37,9 +37,9 @@ og legger verdiene inn i det nye treet.
 
 
 *Oppgave 6: I fjern-metoden kopierte jeg kode fra kompendiet 5.2.8d).Jeg sammenlikner input-verdien med rot-verdien, og hvis cmp er
-mindre enn 0, er q forelder til p og p går til venstre. Hvis cmp er større enn 0, går den til høyre. Hvis p er null, er treet tomt. Så sjekker jeg om p er roten, hvis den
-er det, setter jeg roten til b og rotens forelder til null. Hvis p er q sitt venstre barn, setter jeg q sitt venstre barn til b.
-Hvis b ikke er null, er b sin forelder q. Oppretter deretter nye hjelpenoder s=p og r=p.høyre. s er forelder til r. Sjekker om r ikke er lik null, og setter dermed
+mindre enn 0, er q forelder til p og p går til venstre. Hvis cmp er større enn 0, går den til høyre. Hvis p er null, er treet tomt. Her må jeg sjekke om b ikke er null, for hvis den ikke er det, 
+ så er q forelder til b.  Så sjekker jeg om p er roten, hvis den er det, setter jeg roten til b. Hvis p er q sitt venstre barn, setter jeg q sitt venstre barn til b.
+Oppretter deretter nye hjelpenoder s=p og r=p.høyre. s er forelder til r. Sjekker om r sin venstre ikke er lik null, og setter dermed
 s lik r, og r lik venstrebarnet til r. Hvis s ikke er lik p, settes s sitt venstre barn lik r sitt høyre barn. Hvis ikke settes s sitt høyre barn lik r sitt høyre barn. 
 I fjernAlle sjekker jeg om treet er tomt, og returnerer da 0 hvis det er det. Oppretter en teller som teller forekomster som blir fjernet, og kaller på fjern-metoden for å 
 fjerne verdiene. 

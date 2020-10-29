@@ -76,25 +76,25 @@ public class EksamenSBinTre<T> {
         Objects.requireNonNull(verdi, "Ikke love med null-verdier");
 
 
-        Node<T> p = rot, q = null;  //p starter i roten
-        int cmp = 0;    //hjelpevariabel
+        Node<T> p = rot, q = null;                                  //p starter i roten
+        int cmp = 0;                                                //hjelpevariabel
 
-        while(p != null) {  //fortsetter til p er ute av treet
-            q = p;  //q er forelder til p
-            cmp = comp.compare(verdi, p.verdi); //bruker komparatoren
+        while(p != null) {                                          //fortsetter til p er ute av treet
+            q = p;                                                  //q er forelder til p
+            cmp = comp.compare(verdi, p.verdi);                     //bruker komparatoren
             p = cmp < 0 ? p.venstre : p.høyre;
         }
 
         //p er nå null, som betyr at den er ute av treet, forelder er den siste vi passerte
 
-        p = new Node<>(verdi, q);  //oppretter en ny node, med q som forelder
+        p = new Node<>(verdi, q);                                   //oppretter en ny node, med q som forelder
 
-        if(q == null) rot = p;  //p blir rotnode
-        else if(cmp < 0) q.venstre = p; //venstre barn til q
-        else q.høyre = p;   //høyre barn til q
+        if(q == null) rot = p;                                      //p blir rotnode
+        else if(cmp < 0) q.venstre = p;                             //venstre barn til q
+        else q.høyre = p;                                           //høyre barn til q
 
-        antall++;   //en verdi mer i treet
-        return true;    //vellykket innlegging
+        antall++;                                                   //en verdi mer i treet
+        return true;                                                //vellykket innlegging
 
     }
 
@@ -129,13 +129,13 @@ public class EksamenSBinTre<T> {
             return 0;
         }
         Node<T> p = rot;
-        int antall = 0;     //Hjelpevariabel for å holde styr på antallet forekomster
+        int antall = 0;                                             //Hjelpevariabel for å holde styr på antallet forekomster
 
-        while (p != null) {     //Kjører når vi vet det finnes noder
-            int cmp = comp.compare(verdi, p.verdi); //Bruker komparatoren på verdien i treeet og p
-            if(cmp < 0) p = p.venstre;      //Hvis komparator er mindre enn 0, får p ny verdi til venstre
+        while (p != null) {                                         //Kjører når vi vet det finnes noder
+            int cmp = comp.compare(verdi, p.verdi);                 //Bruker komparatoren på verdien i treeet og p
+            if(cmp < 0) p = p.venstre;                              //Hvis komparator er mindre enn 0, får p ny verdi til venstre
             else {
-                if(cmp == 0) antall++;      //Hvis komparator er null, øker antall og p får verdi til høyre
+                if(cmp == 0) antall++;                              //Hvis komparator er null, øker antall og p får verdi til høyre
                 p = p.høyre;
             }
         }
@@ -150,20 +150,20 @@ public class EksamenSBinTre<T> {
         Objects.requireNonNull(p, "Null-verdier er ikke tillatt");
 
         while(true) {
-            if(p.venstre != null) p = p.venstre;
-            else if(p.høyre != null) p = p.høyre;
+            if(p.venstre != null) p = p.venstre;        //Setter p = p.venstre hvis p.venstre ikke er null
+            else if(p.høyre != null) p = p.høyre;       //Og gjør det samme med høyre-siden
             else return p;
         }
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        if(p.forelder == null) {        //Sjekker om p er rot-noden
+        if(p.forelder == null) {                    //Sjekker om p er rot-noden
             return null;
         }
-        else if(p == p.forelder.høyre) {  //Hvis p er et høyre barn vil p sin forelder være neste i postorden
+        else if(p == p.forelder.høyre) {            //Hvis p er et høyre barn vil p sin forelder være neste i postorden
             p = p.forelder;
         }
-        else if(p == p.forelder.venstre) {    //Hvis p er et venstre barn, og p sin forelder ikke har et høyre barn
+        else if(p == p.forelder.venstre) {          //Hvis p er et venstre barn, og p sin forelder ikke har et høyre barn
             if(p.forelder.høyre == null) {                              //^ er p sin forelder neste i postorden
                 p = p.forelder;
             }
@@ -210,31 +210,26 @@ public class EksamenSBinTre<T> {
     /////////////////////////// OPPGAVE 5 //////////////////////////////////////////////
 
     public ArrayList<T> serialize() {
-        //Sjekker om roten er null
-        if (rot == null) {
+
+        if (rot == null) {                                  //Sjekker om roten er null
             return null;
         }
-        //Oppretter en ArrayList jeg kan lagre verdiene i
-        ArrayList<T> array = new ArrayList<>();
-        //Og oppretter en kø
-        LinkedList<Node<T>> queue = new LinkedList<>();
-        //Legger roten som sist i køen
-        queue.addLast(rot);
 
-        //Kjører så lenge køen ikke er tom
-        while(!queue.isEmpty()) {
+        ArrayList<T> array = new ArrayList<>();             //Oppretter en ArrayList jeg kan lagre verdiene i
+
+        LinkedList<Node<T>> queue = new LinkedList<>();     //Og oppretter en kø
+        queue.addLast(rot);                                 //Legger roten som sist i køen
+
+
+        while(!queue.isEmpty()) {                           //Kjører så lenge køen ikke er tom
             Node<T> denne = queue.removeFirst();
-            //Legger denne.verdi inn i array
-            array.add(denne.verdi);
-
-            //Legger inn denne.venstre sist i køen
-            if(denne.venstre != null) {
+            array.add(denne.verdi);                         //Legger denne.verdi inn i array
+            if(denne.venstre != null) {                     //Legger inn denne.venstre sist i køen
                 queue.addLast(denne.venstre);
             }
 
             if(denne.høyre != null) {
-                //Legger inn denne.høyre sist i køen
-                queue.addLast(denne.høyre);
+                queue.addLast(denne.høyre);                 //Legger inn denne.høyre sist i køen
             }
         }
         return array;
@@ -243,14 +238,14 @@ public class EksamenSBinTre<T> {
     }
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        //Lager et nytt tre, og bruker komparatoren
-        EksamenSBinTre<K> tre = new EksamenSBinTre<>(c);
-        //Looper gjennom verdiene i ArrayListen data, og legger inn i det nye treet
-        for(K verdi : data) {
+
+        EksamenSBinTre<K> tre = new EksamenSBinTre<>(c);        //Lager et nytt tre, og bruker komparatoren
+
+        for(K verdi : data) {                                   //Looper gjennom verdiene i ArrayListen data, og legger inn i det nye treet
             tre.leggInn(verdi);
         }
-        // Returnerer treet
-        return tre;
+
+        return tre;                                             // Returnerer treet
     }
 
     /////////////////////////// OPPGAVE 6 //////////////////////////////////////////////
@@ -284,23 +279,18 @@ public class EksamenSBinTre<T> {
 
         else if(p.venstre == null || p.høyre == null) {
             Node<T> b = p.venstre != null ? p.venstre : p.høyre;    //b for barn
+
+            if(b != null) {
+                b.forelder = q;
+            }
             if(p == rot) {
-                rot = b;                                    //Hvis p er roten, setter vi roten til b
-                if(b != null){
-                    b.forelder = null;          //Rotens forelder er null
-                }
+                rot = b;
             }
             else if(p == q.venstre) {
-                q.venstre = b;                  //q sitt venstre barn er b
-                if(b != null) {
-                    b.forelder = q;             //Hvis b ikke er lik null, setter jeg q som forelder til b
-                }
+                q.venstre = b;
             }
             else {
-                q.høyre = b;                    //Ellers er q sitt høyre barn lik b
-                if(b != null) {
-                    b.forelder = q;
-                }
+                q.høyre = b;
             }
         }
         else {
@@ -313,9 +303,6 @@ public class EksamenSBinTre<T> {
             p.verdi = r.verdi;
             if(s != p) {
                 s.venstre = r.høyre;                        //Hvis s ikke er lik p, settes s sitt venstre barn lik r sitt høyre barn
-                if(r.høyre != null) {
-                    r.forelder.høyre = s;
-                }
 
             }
             else {
